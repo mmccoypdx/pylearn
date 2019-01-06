@@ -29,7 +29,9 @@ def snapshots():
 @snapshots.command('list')
 @click.option('--project', default=None,
               help="Only snapshots for project (tag Project:<name>)")
-def list_snapshots(project):
+@click.option('--all', 'list_all', default=False, is_flag=True,
+              help="List all the snapshots; not just most recent")
+def list_snapshots(project,list_all):
     """List EC2 snapshots"""
 
     instances = filter_instances(project)
@@ -46,6 +48,9 @@ def list_snapshots(project):
                     s.start_time.strftime("%c")
                 )))
 
+                if s.state == 'completed' and not list_all:
+                    break
+
     return
 
 
@@ -58,7 +63,7 @@ def volumes():
 @click.option('--project', default=None,
               help="Only volumes for project (tag Project:<name>)")
 def list_volumes(project):
-    "List EC2 volumes"
+    """List EC2 volumes"""
 
     instances = filter_instances(project)
 
@@ -114,7 +119,7 @@ def create_snapshots(project):
 @click.option('--project', default=None,
               help="Only instances for project (tag Project:<name>)")
 def list_instances(project):
-    "List EC2 instances"
+    """List EC2 instances"""
 
     instances = filter_instances(project)
 
@@ -135,7 +140,7 @@ def list_instances(project):
 @click.option('--project', default=None,
               help="Only instances for project (tag Project:<name>)")
 def stop_instances(project):
-    "Stop instances for project"
+    """Stop instances for project"""
 
     instances = filter_instances(project)
 
@@ -153,7 +158,7 @@ def stop_instances(project):
 @click.option('--project', default=None,
               help="Only instances for project (tag Project:<name>)")
 def start_instances(project):
-    "Start instances for project"
+    """Start instances for project"""
 
     instances = filter_instances(project)
 
