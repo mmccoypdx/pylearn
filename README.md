@@ -13,6 +13,7 @@ Uses the config file created b the AWS cli eg
 
 ## RUNNING
 
-`pipenv run python shotty/shotty.py <command> <--project=PROJECT>`
-*command* is list, start or stop
+`pipenv run python shotty/shotty.py <command> <subcommand> <--project=PROJECT>`
+*command* is instances, volume, snapshot
+*subcommand* depends on the command 
 *project* is optional
